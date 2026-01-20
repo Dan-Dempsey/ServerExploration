@@ -5,7 +5,7 @@ function App() {
     const [input, setInput] = useState("");
     const [response, setResponse] = useState("");
 
-    const SERVER_URL = "http://localhost:3000";
+    const SERVER_URL = "https://server-b8s6.onrender.com/";
 
     const handleRequest = async (method: string) => {
         try {
@@ -30,16 +30,15 @@ function App() {
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    placeholder='{"key": "value"}'
                 />
             </div>
             <div>
-                <button onClick={() => handleRequest('GET')}>GET</button>
-                <button onClick={() => handleRequest('POST')}>POST</button>
-                <button onClick={() => handleRequest('PUT')}>PUT</button>
-                <button onClick={() => handleRequest('DELETE')}>DELETE</button>
+                <button onClick={() => handleRequest("GET")}>GET</button>
+                <button onClick={() => handleRequest("POST")}>POST</button>
+                <button onClick={() => handleRequest("PUT")}>PUT</button>
+                <button onClick={() => handleRequest("DELETE")}>DELETE</button>
             </div>
-            <pre>{response}</pre>
+            <p>{response}</p>
         </>
     )
 }
