@@ -9,7 +9,7 @@ function App() {
 
     const handleRequest = async (method: string) => {
         try {
-            const options: RequestInit = { method };
+            const options: RequestInit = {method};
 
             if (method !== 'GET' && input) {
                 options.headers = {'Content-Type': 'application/json'};
@@ -18,7 +18,7 @@ function App() {
 
             const res = await fetch(SERVER_URL, options);
             const data = await res.json();
-            setResponse(JSON.stringify(data, null, 2));
+            setResponse(JSON.stringify(data));
         } catch (error) {
             setResponse(`Error: ${(error as Error).message}`);
         }
