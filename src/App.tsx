@@ -1,50 +1,47 @@
 import './App.css'
-import './javascript.js'
-import {useEffect, useState} from "react";
+import {useState} from "react";
+
 function App() {
-    const [putInput, setPutInput] = useState("");
-    useEffect(() => {
+    const [input, setInput] = useState("");
+    const [response, setResponse] = useState("");
 
-    })
+    const SERVER_URL = "http://localhost:3000";
 
-    const [postInput, setPostInput] = useState("");
-    useEffect(() => {
+    const handleRequest = async (method: string) => {
+        try {
+            const options: RequestInit = { method };
 
-    })
+            if (method !== 'GET' && input) {
+                options.headers = {'Content-Type': 'application/json'};
+                options.body = input;
+            }
 
-    const [deleteInput, setDeleteInput] = useState("");
-    useEffect(() => {
+            const res = await fetch(SERVER_URL, options);
+            const data = await res.json();
+            setResponse(JSON.stringify(data, null, 2));
+        } catch (error) {
+            setResponse(`Error: ${(error as Error).message}`);
+        }
+    };
 
-    }, []);
-  return (
-    <>
-      <div id="serverRequests">
-          <div className="inputButton">
-              <button id="getButton" onClick={() => {}}>
-                  GET
-              </button>
-          </div>
-          <div className="inputButton">
-          <input id="putInput"/>
-              <button id="putButton" onClick={() => setPutInput}>
-                  PUT
-              </button>
-          </div>
-          <div className="inputButton">
-              <input id="postInput"/>
-              <button id="postButton" onClick={() => setPostInput}>
-                  POST
-              </button>
-          </div>
-          <div className="inputButton">
-              <input id="deleteInput"/>
-              <button id="deleteButton" onClick={() => setDeleteInput}>
-                  DELETE
-              </button>
-          </div>
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div>
+                <input
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder='{"key": "value"}'
+                />
+            </div>
+            <div>
+                <button onClick={() => handleRequest('GET')}>GET</button>
+                <button onClick={() => handleRequest('POST')}>POST</button>
+                <button onClick={() => handleRequest('PUT')}>PUT</button>
+                <button onClick={() => handleRequest('DELETE')}>DELETE</button>
+            </div>
+            <pre>{response}</pre>
+        </>
+    )
 }
 
 export default App
