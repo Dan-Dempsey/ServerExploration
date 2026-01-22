@@ -9,97 +9,113 @@ function App() {
     const [triggerPut, setTriggerPut] = useState(false);
     const [triggerDelete, setTriggerDelete] = useState(false);
 
-    // GET useEffect
+    //GET
     useEffect(() => {
         if (!triggerGet) return;
 
-        fetch("https://server-b8s6.onrender.com/", {
+        fetch('https://server-b8s6.onrender.com', {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then((res) => {
+        })
+            .then((res) => {
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             return res.json();
-        }).then((data) => {
+        })
+            .then((data) => {
             setResponse(JSON.stringify(data, null, 2));
-        }).catch((error) => {
+        })
+            .catch((error) => {
             setResponse(`Error: ${error.message}`);
-        }).finally(() => {
+        })
+            .finally(() => {
             setTriggerGet(false);
         });
     }, [triggerGet]);
 
-    // POST useEffect
+    //POST
     useEffect(() => {
         if (!triggerPost) return;
 
-        fetch("https://server-b8s6.onrender.com/", {
+        fetch('https://server-b8s6.onrender.com', {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({data: input})
-        }).then((res) => {
+        })
+            .then((res) => {
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             return res.json();
-        }).then((data) => {
+        })
+            .then((data) => {
             setResponse(JSON.stringify(data, null, 2));
-        }).catch((error) => {
+        })
+            .catch((error) => {
             setResponse(`Error: ${error.message}`);
-        }).finally(() => {
+        })
+            .finally(() => {
             setTriggerPost(false);
         });
     }, [triggerPost, input]);
 
-    // PUT useEffect
+    //PUT
     useEffect(() => {
         if (!triggerPut) return;
 
-        fetch("https://server-b8s6.onrender.com/", {
+        fetch('https://server-b8s6.onrender.com', {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({data: input})
-        }).then((res) => {
+        })
+            .then((res) => {
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             return res.json();
-        }).then((data) => {
+        })
+            .then((data) => {
             setResponse(JSON.stringify(data, null, 2));
-        }).catch((error) => {
+        })
+            .catch((error) => {
             setResponse(`Error: ${error.message}`);
-        }).finally(() => {
+        })
+            .finally(() => {
             setTriggerPut(false);
         });
     }, [triggerPut, input]);
 
-    // DELETE useEffect
+    //DELETE
     useEffect(() => {
         if (!triggerDelete) return;
 
-        fetch("https://server-b8s6.onrender.com/", {
+        fetch('https://server-b8s6.onrender.com', {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({data: input})
-        }).then((res) => {
+        })
+            .then((res) => {
             if (!res.ok) {
                 throw new Error(`HTTP error! status: ${res.status}`);
             }
             return res.json();
-        }).then((data) => {
+        })
+            .then((data) => {
             setResponse(JSON.stringify(data, null, 2));
-        }).catch((error) => {
+        })
+            .catch((error) => {
             setResponse(`Error: ${error.message}`);
-        }).finally(() => {
+        })
+            .finally(() => {
             setTriggerDelete(false);
         });
     }, [triggerDelete, input]);
