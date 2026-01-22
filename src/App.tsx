@@ -9,11 +9,13 @@ function App() {
     const [triggerPut, setTriggerPut] = useState(false);
     const [triggerDelete, setTriggerDelete] = useState(false);
 
+    const URL = 'https://server-b8s6.onrender.com'
+
     //GET
     useEffect(() => {
         if (!triggerGet) return;
 
-        fetch('https://server-b8s6.onrender.com', {
+        fetch(URL, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -40,7 +42,7 @@ function App() {
     useEffect(() => {
         if (!triggerPost) return;
 
-        fetch('https://server-b8s6.onrender.com', {
+        fetch(URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -68,7 +70,7 @@ function App() {
     useEffect(() => {
         if (!triggerPut) return;
 
-        fetch('https://server-b8s6.onrender.com', {
+        fetch(URL, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -96,7 +98,7 @@ function App() {
     useEffect(() => {
         if (!triggerDelete) return;
 
-        fetch('https://server-b8s6.onrender.com', {
+        fetch(URL, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
