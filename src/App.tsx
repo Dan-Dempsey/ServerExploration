@@ -2,7 +2,8 @@ import './App.css'
 import {useState, useEffect} from "react";
 
 function App() {
-    const [input, setInput] = useState("");
+    const [key, setKey] = useState("");
+    const [value, setValue] = useState("");
     const [response, setResponse] = useState("");
     const [triggerGet, setTriggerGet] = useState(false);
     const [triggerPost, setTriggerPost] = useState(false);
@@ -14,7 +15,6 @@ function App() {
     //GET
     useEffect(() => {
         if (!triggerGet) return;
-
         fetch(URL, {
             method: "GET",
             headers: {
@@ -22,109 +22,115 @@ function App() {
             }
         })
             .then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-        })
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then((data) => {
-            setResponse(JSON.stringify(data, null, 2));
-        })
+                setResponse(JSON.stringify(data, null, 2));
+            })
             .catch((error) => {
-            setResponse(`Error: ${error.message}`);
-        })
+                setResponse(`Error: ${error.message}`);
+            })
             .finally(() => {
-            setTriggerGet(false);
-        });
+                setTriggerGet(false);
+            });
     }, [triggerGet]);
 
     //POST
     useEffect(() => {
         if (!triggerPost) return;
-
         fetch(URL, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({data: input})
+            body: JSON.stringify({key, value})
         })
             .then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-        })
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then((data) => {
-            setResponse(JSON.stringify(data, null, 2));
-        })
+                setResponse(JSON.stringify(data, null, 2));
+            })
             .catch((error) => {
-            setResponse(`Error: ${error.message}`);
-        })
+                setResponse(`Error: ${error.message}`);
+            })
             .finally(() => {
-            setTriggerPost(false);
-        });
-    }, [triggerPost, input]);
+                setTriggerPost(false);
+            });
+    }, [triggerPost, key, value]);
 
     //PUT
     useEffect(() => {
         if (!triggerPut) return;
-
         fetch(URL, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({data: input})
+            body: JSON.stringify({key, value})
         })
             .then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-        })
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then((data) => {
-            setResponse(JSON.stringify(data, null, 2));
-        })
+                setResponse(JSON.stringify(data, null, 2));
+            })
             .catch((error) => {
-            setResponse(`Error: ${error.message}`);
-        })
+                setResponse(`Error: ${error.message}`);
+            })
             .finally(() => {
-            setTriggerPut(false);
-        });
-    }, [triggerPut, input]);
+                setTriggerPut(false);
+            });
+    }, [triggerPut, key, value]);
 
     //DELETE
     useEffect(() => {
         if (!triggerDelete) return;
-
         fetch(URL, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({data: input})
+            body: JSON.stringify({key})
         })
             .then((res) => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-            return res.json();
-        })
+                if (!res.ok) {
+                    throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                return res.json();
+            })
             .then((data) => {
-            setResponse(JSON.stringify(data, null, 2));
-        })
+                setResponse(JSON.stringify(data, null, 2));
+            })
             .catch((error) => {
-            setResponse(`Error: ${error.message}`);
-        })
+                setResponse(`Error: ${error.message}`);
+            })
             .finally(() => {
-            setTriggerDelete(false);
-        });
-    }, [triggerDelete, input]);
+                setTriggerDelete(false);
+            });
+    }, [triggerDelete, key]);
 
     return (
         <>
-            <input value={input} onChange={(e) => setInput(e.target.value)} />
+            <input
+                placeholder="Key"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+            />
+            <input
+                placeholder="Value"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+            />
             <div>
                 <button onClick={() => setTriggerGet(true)}>GET</button>
                 <button onClick={() => setTriggerPost(true)}>POST</button>
